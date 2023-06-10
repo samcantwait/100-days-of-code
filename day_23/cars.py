@@ -1,4 +1,5 @@
 from turtle import Turtle
+import random
 
 
 class Cars(Turtle):
@@ -10,9 +11,8 @@ class Cars(Turtle):
         self.penup()
         self.y_cor = position[1]
         self.goto(position)
-        print(position[1])
 
     def move(self):
         if self.xcor() < -310:
-            self.goto(310, self.y_cor)
+            self.goto(310, random.randint(-250, 250))
         self.backward(10)
