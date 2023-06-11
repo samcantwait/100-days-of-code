@@ -13,15 +13,7 @@ screen.colormode(255)
 
 game_turtle = Game_turtle()
 scoreboard = Scoreboard()
-cars = []
-for _ in range(20):
-    position = (random.randint(-300, 300), random.randint(-250, 250))
-
-    def color():
-        return random.randint(0, 255)
-    colors = (color(), color(), color())
-    car = Cars(position, colors)
-    cars.append(car)
+cars = Cars()
 
 screen.listen()
 screen.onkeypress(game_turtle.move_up, 'Up')
@@ -29,13 +21,12 @@ screen.onkeypress(game_turtle.move_up, 'Up')
 game_is_on = True
 while game_is_on:
     time.sleep(game_turtle.difficulty) 
+    cars.move()
     screen.update()
-    for car in range(len(cars)):
-        if game_turtle.distance(cars[car]) < 35 and (game_turtle.ycor() > cars[car].ycor() - 20 and game_turtle.ycor() < cars[car].ycor() + 20):
+    for car in cars.all_cars:
+        if game_turtle.distance(car) < 35 and (game_turtle.ycor() > car.ycor() - 20 and game_turtle.ycor() < car.ycor() + 20):
             game_is_on = False
-        cars[car].move()
-
-    if game_turtle.ycor() >= 290:
+    if game_turtle.crossed():
         game_turtle.reset()
         scoreboard.increase_level()
     if not game_is_on:
