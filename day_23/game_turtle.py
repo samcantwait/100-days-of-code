@@ -3,6 +3,7 @@ from turtle import Turtle
 POSITION = (0, -280)
 MOVE = 10
 HEADING = 90
+FINISH_LINE = 290
 
 
 class Game_turtle(Turtle):
@@ -20,3 +21,8 @@ class Game_turtle(Turtle):
     def reset(self):
         self.goto(POSITION)
         self.difficulty *= 0.9
+
+    def crossed(self):
+        if self.ycor() >= FINISH_LINE:
+            return True
+        return False
